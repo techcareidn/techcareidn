@@ -1,9 +1,9 @@
 export const siteBrand = {
-  /** Nama brand, dipakai untuk alt text dan footer */
-  name: "TechCareIDN",
+  /** Nama brand yang tampil di header dan footer */
+  name: "TechCare",
 
   /** Teks kecil di bawah nama brand */
-  tagline: "Second Chance Tech Platform",
+  tagline: "Rebulild Your Trust, Remember TechCare",
 
   /**
    * Pilihan logo:
@@ -21,16 +21,15 @@ export const siteBrand = {
   logoEmoji: "⚡",
 
   /**
-   * Kalau file logo SVG/PNG kamu sudah berisi tulisan brand,
-   * set false supaya teks TechCareIDN tidak dobel di sebelah logo.
+   * Set true supaya tulisan brand + tagline tampil di samping logo.
+   * Set false kalau file logo kamu sudah berisi tulisan lengkap.
    */
-  showBrandText: false,
+  showBrandText: true,
 
   /**
    * Ukuran logo di header.
-   * logoHeight dibuat hampir setinggi bar putih paling atas.
-   * Kalau logo terlalu besar/kecil, cukup ubah angka ini.
+   * Karena teks brand ditampilkan lagi, logo dibuat sebagai ikon/mark saja.
    */
-  logoWidth: 300,
+  logoWidth: 86,
   logoHeight: 86
 };
