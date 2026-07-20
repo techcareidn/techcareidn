@@ -26,7 +26,11 @@ export const siteBrand = {
    */
   showBrandText: false,
 
-  /** Ukuran logo gambar di header */
-  logoWidth: 220,
-  logoHeight: 82
+  /**
+   * Ukuran logo di header.
+   * logoHeight dibuat hampir setinggi bar putih paling atas.
+   * Kalau logo terlalu besar/kecil, cukup ubah angka ini.
+   */
+  logoWidth: 300,
+  logoHeight: 86
 };
