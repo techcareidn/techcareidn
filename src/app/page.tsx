@@ -1,11 +1,471 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+const slides = [
+  {
+    tag: "Second Chance",
+    title: "Teknologi yang memberi kesempatan kedua untuk Pejuang Mimpi",
+    excerpt:
+      "TechCareIDN menghubungkan perangkat layak pakai dari para Bintang dengan Pejuang yang membutuhkan laptop, tablet, atau gadget untuk belajar dan berkarya.",
+    author: "Tim TechCareIDN",
+    date: "20 Jul 2026",
+    read: "4 menit baca",
+    initial: "T",
+    thumb: "t1"
+  },
+  {
+    tag: "Marketplace",
+    title: "Katalog perangkat murah, gratis, dan siap dipinjam komunitas",
+    excerpt:
+      "Setiap perangkat punya status, lokasi, spesifikasi, minus, dan cerita penggunaan agar proses pinjam lebih transparan.",
+    author: "Ruang Perangkat",
+    date: "20 Jul 2026",
+    read: "5 menit baca",
+    initial: "M",
+    thumb: "t2"
+  },
+  {
+    tag: "Wall of Dreams",
+    title: "Mimpi Pejuang menjadi pusat cerita, bukan sekadar transaksi",
+    excerpt:
+      "Tabel dreams dan stories membantu mencatat target, proses bertumbuh, pencapaian, serta dampak nyata dari perangkat yang dipinjamkan.",
+    author: "Wall of Dreams",
+    date: "20 Jul 2026",
+    read: "6 menit baca",
+    initial: "W",
+    thumb: "t3"
+  }
+];
+
+const recentItems = [
+  ["Dokter Gadget", "Cek kondisi laptop sebelum dipinjamkan", "Panduan ringan untuk Bintang agar perangkat aman dipakai Pejuang.", "t1"],
+  ["Marketplace", "Cara membuat listing perangkat yang dipercaya", "Isi spesifikasi, minus, lokasi, dan status dengan jelas.", "t2"],
+  ["Second Chance", "Perangkat lama bisa jadi awal mimpi baru", "Laptop yang tidak terpakai dapat membantu kelas online dan tugas kuliah.", "t3"],
+  ["Wall of Dreams", "Menulis cerita pencapaian setelah mendapat bantuan", "Cerita dampak membuat komunitas lebih percaya dan ikut bergerak.", "t4"]
+];
+
 export default function HomePage() {
-  const landingCss = "@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=Baloo+2:wght@600;700&display=swap');\n:root{\n    --white:#ffffff;\n    --bg-soft:#F6F9FD;\n    --ink:#0F2540;\n    --ink-soft:#4C6079;\n    --blue-900:#0B1E38;\n    --blue-800:#12305A;\n    --blue-700:#1A4C8C;\n    --blue-500:#2E7BD6;\n    --blue-100:#E6F0FC;\n    --yellow-500:#F6B93B;\n    --yellow-600:#E8A324;\n    --yellow-100:#FFF3D6;\n    --green-500:#2FA96B;\n    --green-100:#E3F6EC;\n    --coral-500:#E4574E;\n    --coral-100:#FDEAE9;\n    --line:#E6ECF4;\n    --shadow-sm: 0 2px 10px rgba(15,37,64,0.06);\n    --shadow-md: 0 12px 32px rgba(15,37,64,0.10);\n    --shadow-lg: 0 24px 60px rgba(15,37,64,0.16);\n    --radius-lg: 28px;\n    --radius-md: 20px;\n    --radius-sm: 14px;\n  }\n  *{box-sizing:border-box; margin:0; padding:0;}\n  html{scroll-behavior:smooth;}\n  body{\n    font-family:'Plus Jakarta Sans', sans-serif;\n    color:var(--ink);\n    background:var(--white);\n    -webkit-font-smoothing:antialiased;\n  }\n  img,svg{display:block; max-width:100%;}\n  a{text-decoration:none; color:inherit;}\n  ul{list-style:none;}\n  button{font-family:inherit; cursor:pointer; border:none;}\n  .wrap{max-width:1240px; margin:0 auto; padding:0 40px;}\n  .eyebrow{\n    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:13px;\n    letter-spacing:.04em; text-transform:uppercase;\n  }\n\n  /* ---------- NAV ---------- */\n  .nav{\n    position:sticky; top:0; z-index:50;\n    background:rgba(11,30,56,0.55);\n    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);\n    border-bottom:1px solid rgba(255,255,255,0.08);\n  }\n  .nav .wrap{display:flex; align-items:center; justify-content:space-between; height:78px;}\n  .brand{display:flex; align-items:center; gap:10px;}\n  .brand-mark{\n    width:38px; height:38px; border-radius:11px;\n    background:linear-gradient(145deg, var(--yellow-500), var(--yellow-600));\n    display:flex; align-items:center; justify-content:center;\n    box-shadow: 0 4px 12px rgba(246,185,59,0.35);\n  }\n  .brand-mark svg{width:20px; height:20px;}\n  .brand-name{color:#fff; font-weight:800; font-size:19px; letter-spacing:-.01em;}\n  .brand-name span{color:var(--yellow-500);}\n  .nav-links{display:flex; align-items:center; gap:34px;}\n  .nav-links a{\n    color:rgba(255,255,255,0.82); font-size:14.5px; font-weight:600;\n    transition:color .15s ease; position:relative;\n  }\n  .nav-links a:hover{color:#fff;}\n  .nav-right{display:flex; align-items:center; gap:18px;}\n  .lang-switch{\n    display:flex; align-items:center; gap:6px; color:#fff;\n    background:rgba(255,255,255,0.12); padding:7px 12px; border-radius:99px;\n    font-size:13px; font-weight:600;\n  }\n  .nav-cta-ghost{color:#fff; font-size:14.5px; font-weight:600; opacity:.9;}\n  .nav-cta-solid{\n    background:var(--yellow-500); color:var(--blue-900); font-weight:700; font-size:14.5px;\n    padding:11px 22px; border-radius:99px; box-shadow:0 6px 16px rgba(246,185,59,0.3);\n    transition:transform .15s ease, box-shadow .15s ease;\n  }\n  .nav-cta-solid:hover{transform:translateY(-1px); box-shadow:0 10px 22px rgba(246,185,59,0.4);}\n  .nav-burger{display:none; width:22px; height:16px; position:relative;}\n  .nav-burger span{position:absolute; left:0; width:100%; height:2px; background:#fff; border-radius:2px;}\n  .nav-burger span:nth-child(1){top:0;} .nav-burger span:nth-child(2){top:7px;} .nav-burger span:nth-child(3){top:14px;}\n\n  /* ---------- HERO ---------- */\n  .hero{\n    position:relative; min-height:640px;\n    background:\n      radial-gradient(ellipse 800px 500px at 82% 8%, rgba(246,185,59,0.22), transparent 60%),\n      linear-gradient(180deg, var(--blue-900) 0%, var(--blue-800) 55%, var(--blue-700) 100%);\n    overflow:hidden;\n  }\n  .hero-illustration{position:absolute; inset:0; opacity:0.98;}\n  .hero-inner{\n    position:relative; z-index:2; padding-top:96px; padding-bottom:170px;\n  }\n  .hero-tag{\n    display:inline-flex; align-items:center; gap:8px;\n    background:rgba(255,255,255,0.1); color:var(--yellow-500);\n    padding:8px 16px; border-radius:99px; font-size:12.5px; font-weight:700;\n    letter-spacing:.03em; text-transform:uppercase; margin-bottom:26px;\n    border:1px solid rgba(255,255,255,0.14);\n  }\n  .hero-tag i{width:6px; height:6px; border-radius:50%; background:var(--yellow-500); display:inline-block;}\n  .hero h1{\n    color:#fff; font-size:56px; line-height:1.08; font-weight:800; letter-spacing:-0.02em;\n    max-width:640px;\n  }\n  .hero h1 em{font-style:normal; color:var(--yellow-500);}\n  .hero p.lead{\n    color:rgba(255,255,255,0.78); font-size:18px; line-height:1.6; max-width:480px; margin-top:22px; font-weight:500;\n  }\n  .hero-actions{display:flex; gap:14px; margin-top:34px;}\n  .btn-primary{\n    background:var(--yellow-500); color:var(--blue-900); font-weight:700; font-size:15px;\n    padding:15px 28px; border-radius:99px; display:inline-flex; align-items:center; gap:8px;\n    box-shadow:0 10px 24px rgba(246,185,59,0.32); transition:transform .15s ease;\n  }\n  .btn-primary:hover{transform:translateY(-2px);}\n  .btn-outline{\n    background:rgba(255,255,255,0.06); color:#fff; font-weight:700; font-size:15px;\n    padding:15px 26px; border-radius:99px; border:1.5px solid rgba(255,255,255,0.35);\n    transition:background .15s ease;\n  }\n  .btn-outline:hover{background:rgba(255,255,255,0.14);}\n  .hero-caption{\n    position:absolute; right:40px; bottom:150px; text-align:right; z-index:2;\n    color:rgba(255,255,255,0.5); font-style:italic; font-size:20px; line-height:1.4; font-weight:500;\n  }\n  .hero-caption strong{display:block; color:rgba(255,255,255,0.85); font-style:normal; font-weight:700;}\n\n  .chat-bubble{\n    position:absolute; right:40px; bottom:56px; z-index:6;\n    display:flex; align-items:center; gap:0;\n  }\n  .chat-avatar{\n    width:64px; height:64px; border-radius:50%; background:var(--white);\n    border:3px solid var(--yellow-500); box-shadow:var(--shadow-lg);\n    display:flex; align-items:center; justify-content:center; position:relative;\n  }\n  .chat-avatar svg{width:34px; height:34px;}\n  .chat-dot{\n    position:absolute; top:-2px; right:-2px; width:16px; height:16px; border-radius:50%;\n    background:var(--green-500); border:3px solid var(--blue-900);\n  }\n  .chat-tip{\n    position:absolute; right:76px; bottom:8px; background:#fff; color:var(--ink);\n    padding:10px 16px; border-radius:14px 14px 4px 14px; font-size:13.5px; font-weight:600;\n    box-shadow:var(--shadow-md); white-space:nowrap;\n  }\n\n  /* Floating quick-access panel overlapping hero bottom */\n  .quickpanel{\n    position:relative; z-index:5; margin-top:-92px; padding-bottom:0;\n  }\n  .quickpanel-card{\n    background:#fff; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg);\n    padding:14px; display:flex; align-items:center; gap:8px; border:1px solid var(--line);\n  }\n  .qp-tab{\n    flex:1; display:flex; align-items:center; gap:12px; padding:16px 20px; border-radius:18px;\n    transition:background .15s ease; cursor:pointer;\n  }\n  .qp-tab:hover{background:var(--bg-soft);}\n  .qp-tab.active{background:var(--blue-700); box-shadow:0 8px 18px rgba(26,76,140,0.28);}\n  .qp-icon{\n    width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;\n  }\n  .qp-tab:not(.active) .qp-icon{background:var(--blue-100);}\n  .qp-tab.active .qp-icon{background:rgba(255,255,255,0.16);}\n  .qp-icon svg{width:22px; height:22px;}\n  .qp-text b{display:block; font-size:14.5px; font-weight:700;}\n  .qp-text span{font-size:12.5px; color:var(--ink-soft); font-weight:500;}\n  .qp-tab.active .qp-text b, .qp-tab.active .qp-text span{color:#fff;}\n  .qp-tab.active .qp-text span{color:rgba(255,255,255,0.7);}\n  .qp-divider{width:1px; height:38px; background:var(--line);}\n\n  /* ---------- SECTION HEADERS ---------- */\n  .section{padding:120px 0;}\n  .section-tight{padding-top:90px;}\n  .section-head{max-width:620px; margin-bottom:56px;}\n  .section-head .eyebrow{color:var(--blue-500);}\n  .section-head h2{font-size:38px; font-weight:800; letter-spacing:-0.02em; margin-top:12px; line-height:1.18;}\n  .section-head p{color:var(--ink-soft); font-size:16.5px; margin-top:14px; line-height:1.6;}\n  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}\n\n  /* ---------- SERVICE CARDS ---------- */\n  .services{background:var(--bg-soft);}\n  .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}\n  .service-card{\n    background:#fff; border-radius:var(--radius-lg); padding:36px 30px; box-shadow:var(--shadow-sm);\n    border:1px solid var(--line); transition:transform .2s ease, box-shadow .2s ease;\n  }\n  .service-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md);}\n  .service-icon{\n    width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin-bottom:22px;\n  }\n  .service-icon svg{width:28px; height:28px;}\n  .service-card.blue .service-icon{background:var(--blue-100);}\n  .service-card.yellow .service-icon{background:var(--yellow-100);}\n  .service-card.dual .service-icon{background:linear-gradient(135deg, var(--blue-100), var(--yellow-100));}\n  .service-card h3{font-size:21px; font-weight:800; margin-bottom:10px; letter-spacing:-.01em;}\n  .service-card p{color:var(--ink-soft); font-size:14.5px; line-height:1.65; margin-bottom:24px;}\n  .service-link{display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:14px; color:var(--blue-700);}\n  .service-link svg{width:15px; height:15px; transition:transform .15s ease;}\n  .service-card:hover .service-link svg{transform:translateX(3px);}\n  .service-card.dual .service-link{color:var(--yellow-600);}\n  .service-badge{\n    display:inline-block; font-family:'Baloo 2',sans-serif; font-size:11.5px; font-weight:700;\n    padding:4px 11px; border-radius:99px; background:var(--yellow-500); color:var(--blue-900);\n    margin-bottom:16px; letter-spacing:.02em;\n  }\n\n  /* ---------- SECOND CHANCE STRIP ---------- */\n  .sc-strip{\n    background:linear-gradient(120deg, var(--blue-900) 0%, var(--blue-700) 100%);\n    border-radius:36px; padding:64px 60px; position:relative; overflow:hidden;\n  }\n  .sc-strip::before{\n    content:''; position:absolute; width:420px; height:420px; border-radius:50%;\n    background:radial-gradient(circle, rgba(246,185,59,0.25), transparent 70%);\n    top:-160px; right:-120px;\n  }\n  .sc-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; position:relative; z-index:2;}\n  .sc-grid h2{color:#fff; font-size:34px; font-weight:800; line-height:1.2; letter-spacing:-.02em;}\n  .sc-grid p{color:rgba(255,255,255,0.72); font-size:15.5px; line-height:1.7; margin-top:18px;}\n  .rail{display:flex; align-items:center; gap:0; margin-top:30px; max-width:340px;}\n  .rail div{flex:1; height:6px;}\n  .rail .r1{background:var(--coral-500); border-radius:6px 0 0 6px;}\n  .rail .r2{background:var(--yellow-500);}\n  .rail .r3{background:var(--green-500); border-radius:0 6px 6px 0;}\n  .sc-cards{display:flex; flex-direction:column; gap:16px;}\n  .sc-card{\n    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14);\n    border-radius:20px; padding:22px 24px; display:flex; align-items:center; gap:16px;\n    backdrop-filter:blur(6px);\n  }\n  .sc-card-icon{\n    width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;\n  }\n  .sc-card.star .sc-card-icon{background:var(--yellow-500);}\n  .sc-card.fighter .sc-card-icon{background:var(--white);}\n  .sc-card-icon svg{width:24px; height:24px;}\n  .sc-card h4{color:#fff; font-size:15.5px; font-weight:700;}\n  .sc-card p{color:rgba(255,255,255,0.62); font-size:12.5px; margin-top:2px;}\n  .sc-card-btn{\n    margin-left:auto; width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.14);\n    display:flex; align-items:center; justify-content:center; flex-shrink:0;\n  }\n  .sc-card-btn svg{width:15px; height:15px;}\n\n  /* ---------- WALL OF DREAMS ---------- */\n  .wod-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}\n  .wod-card{\n    border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow-sm);\n    transition:transform .2s ease, box-shadow .2s ease;\n  }\n  .wod-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-md);}\n  .wod-stage{height:5px; width:100%;}\n  .wod-stage.g{background:var(--green-500);}\n  .wod-photo{\n    height:190px; display:flex; align-items:end; padding:16px; position:relative;\n  }\n  .wod-photo img{width:100%; height:100%; object-fit:cover; position:absolute; inset:0; z-index:0;}\n  .wod-photo::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(15,37,64,0) 40%, rgba(15,37,64,0.72) 100%); z-index:0;}\n  .wod-name{position:relative; z-index:1; color:#fff; font-weight:700; font-size:15.5px;}\n  .wod-name span{display:block; font-weight:500; font-size:12px; color:rgba(255,255,255,0.75); margin-top:2px;}\n  .wod-body{padding:22px;}\n  .wod-tag{\n    display:inline-block; font-size:11.5px; font-weight:700; color:var(--green-500);\n    background:var(--green-100); padding:4px 10px; border-radius:99px; margin-bottom:12px;\n  }\n  .wod-dream{font-size:14.5px; font-weight:700; line-height:1.4; margin-bottom:14px;}\n  .wod-ba{display:flex; gap:10px; font-size:12px; color:var(--ink-soft);}\n  .wod-ba div{flex:1; background:var(--bg-soft); border-radius:10px; padding:9px 10px;}\n  .wod-ba b{display:block; font-size:12.5px; color:var(--ink); margin-bottom:2px;}\n\n  /* ---------- HOPE MAP ---------- */\n  .hopemap-grid{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}\n  .map-card{\n    background:var(--bg-soft); border-radius:var(--radius-lg); padding:30px; border:1px solid var(--line);\n    position:relative;\n  }\n  .map-legend{display:flex; gap:22px; margin-top:20px;}\n  .map-legend div{display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600; color:var(--ink-soft);}\n  .map-legend i{width:10px; height:10px; border-radius:50%; display:inline-block;}\n  .map-stats{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:32px;}\n  .map-stat{background:#fff; border-radius:16px; padding:18px 20px; border:1px solid var(--line);}\n  .map-stat b{display:block; font-size:26px; font-weight:800; color:var(--blue-700);}\n  .map-stat span{font-size:12.5px; color:var(--ink-soft); font-weight:600;}\n\n  /* ---------- FOOTER CTA ---------- */\n  .final-cta{\n    background:var(--blue-900); border-radius:0; padding:100px 0; text-align:center; position:relative; overflow:hidden;\n  }\n  .final-cta::before{\n    content:''; position:absolute; width:600px; height:600px; border-radius:50%;\n    background:radial-gradient(circle, rgba(246,185,59,0.16), transparent 65%);\n    top:-260px; left:50%; transform:translateX(-50%);\n  }\n  .final-cta h2{color:#fff; font-size:38px; font-weight:800; max-width:640px; margin:0 auto; position:relative; z-index:1; line-height:1.25;}\n  .final-cta p{color:rgba(255,255,255,0.65); margin-top:16px; font-size:15.5px; position:relative; z-index:1;}\n  .final-cta .hero-actions{justify-content:center; position:relative; z-index:1;}\n\n  footer{background:var(--blue-900); border-top:1px solid rgba(255,255,255,0.08); padding:56px 0 30px;}\n  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;}\n  .foot-brand p{color:rgba(255,255,255,0.55); font-size:13.5px; margin-top:14px; line-height:1.7; max-width:260px;}\n  footer h5{color:#fff; font-size:13.5px; font-weight:700; margin-bottom:16px;}\n  footer li{margin-bottom:10px;}\n  footer a{color:rgba(255,255,255,0.55); font-size:13.5px;}\n  footer a:hover{color:#fff;}\n  .foot-bottom{\n    margin-top:50px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08);\n    display:flex; justify-content:space-between; color:rgba(255,255,255,0.4); font-size:12.5px;\n  }\n\n  @media (max-width:980px){\n    .service-grid{grid-template-columns:1fr;}\n    .sc-grid{grid-template-columns:1fr;}\n    .wod-grid{grid-template-columns:1fr 1fr;}\n    .hopemap-grid{grid-template-columns:1fr;}\n    .foot-grid{grid-template-columns:1fr 1fr;}\n    .hero h1{font-size:44px;}\n    .nav-links{display:none;}\n    .nav-burger{display:block;}\n    .hero-caption{display:none;}\n  }\n  @media (max-width:640px){\n    .wrap{padding:0 20px;}\n    .wod-grid{grid-template-columns:1fr;}\n    .quickpanel-card{flex-direction:column;}\n    .qp-divider{display:none;}\n    .sc-strip{padding:40px 26px;}\n    .final-cta h2{font-size:28px;}\n    .foot-grid{grid-template-columns:1fr;}\n  }";
-  const landingHtml = "<!-- ===================== NAV ===================== -->\n<nav class=\"nav\">\n  <div class=\"wrap\">\n    <div class=\"brand\">\n      <div class=\"brand-mark\">\n        <svg viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M12 2L14.4 8.8L21.5 9.3L15.9 13.7L17.8 20.7L12 16.6L6.2 20.7L8.1 13.7L2.5 9.3L9.6 8.8L12 2Z\" fill=\"#0F2540\"/></svg>\n      </div>\n      <div class=\"brand-name\">TechCare<span>IDN</span></div>\n    </div>\n    <ul class=\"nav-links\">\n      <li><a href=\"#beranda\">Beranda</a></li>\n      <li><a href=\"#layanan\">Layanan</a></li>\n      <li><a href=\"#second-chance\">Second Chance</a></li>\n      <li><a href=\"#wall-of-dreams\">Wall of Dreams</a></li>\n      <li><a href=\"#peta-harapan\">Peta Harapan</a></li>\n    </ul>\n    <div class=\"nav-right\">\n      <div class=\"lang-switch\">🇮🇩 ID <svg width=\"10\" height=\"10\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3\"><path d=\"M6 9l6 6 6-6\"/></svg></div>\n      <a href=\"#\" class=\"nav-cta-ghost\">Masuk</a>\n      <a href=\"#\" class=\"nav-cta-solid\">Gabung Sekarang</a>\n      <div class=\"nav-burger\"><span></span><span></span><span></span></div>\n    </div>\n  </div>\n</nav>\n\n<!-- ===================== HERO ===================== -->\n<header class=\"hero\" id=\"beranda\">\n  <div class=\"hero-illustration\">\n    <svg viewBox=\"0 0 1400 720\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"xMidYMax slice\" style=\"width:100%;height:100%;\">\n      <circle cx=\"1180\" cy=\"120\" r=\"230\" fill=\"#F6B93B\" opacity=\"0.10\"/>\n      <circle cx=\"1180\" cy=\"120\" r=\"140\" fill=\"#F6B93B\" opacity=\"0.14\"/>\n      <!-- floating device chips -->\n      <g opacity=\"0.9\">\n        <rect x=\"980\" y=\"90\" width=\"86\" height=\"60\" rx=\"12\" fill=\"#ffffff\" opacity=\"0.06\"/>\n        <rect x=\"1060\" y=\"220\" width=\"70\" height=\"70\" rx=\"16\" fill=\"#ffffff\" opacity=\"0.06\"/>\n        <rect x=\"900\" y=\"300\" width=\"60\" height=\"60\" rx=\"14\" fill=\"#ffffff\" opacity=\"0.05\"/>\n        <rect x=\"1180\" y=\"380\" width=\"90\" height=\"64\" rx=\"14\" fill=\"#ffffff\" opacity=\"0.05\"/>\n      </g>\n      <!-- ground gradient shape -->\n      <path d=\"M0 560 Q 350 480 700 540 T 1400 520 V720 H0 Z\" fill=\"#0B2140\" opacity=\"0.55\"/>\n      <path d=\"M0 620 Q 400 560 800 610 T 1400 590 V720 H0 Z\" fill=\"#0B1E38\" opacity=\"0.65\"/>\n\n      <!-- laptop illustration (student figure 1) -->\n      <g transform=\"translate(760,430)\">\n        <ellipse cx=\"70\" cy=\"240\" rx=\"150\" ry=\"16\" fill=\"#000\" opacity=\"0.18\"/>\n        <!-- body -->\n        <path d=\"M20 130 Q10 60 70 55 Q130 60 120 130 L128 235 L12 235 Z\" fill=\"#1A4C8C\"/>\n        <circle cx=\"70\" cy=\"30\" r=\"28\" fill=\"#F3C89B\"/>\n        <path d=\"M42 22 Q70 -6 98 22 Q100 6 70 2 Q40 6 42 22Z\" fill=\"#12305A\"/>\n        <!-- laptop -->\n        <g transform=\"translate(30,150)\">\n          <rect x=\"0\" y=\"0\" width=\"80\" height=\"52\" rx=\"4\" fill=\"#0F2540\"/>\n          <rect x=\"4\" y=\"4\" width=\"72\" height=\"40\" rx=\"2\" fill=\"#F6B93B\"/>\n          <rect x=\"-6\" y=\"52\" width=\"92\" height=\"6\" rx=\"2\" fill=\"#0B1E38\"/>\n        </g>\n      </g>\n\n      <!-- helper figure 2 -->\n      <g transform=\"translate(560,455)\">\n        <ellipse cx=\"55\" cy=\"220\" rx=\"120\" ry=\"14\" fill=\"#000\" opacity=\"0.16\"/>\n        <path d=\"M15 120 Q5 55 55 50 Q105 55 95 120 L102 215 L10 215 Z\" fill=\"#F6B93B\"/>\n        <circle cx=\"55\" cy=\"26\" r=\"24\" fill=\"#E8A97A\"/>\n        <path d=\"M32 18 Q55 -4 78 18 Q80 4 55 0 Q30 4 32 18Z\" fill=\"#12305A\"/>\n        <!-- device box being handed over -->\n        <rect x=\"88\" y=\"120\" width=\"40\" height=\"34\" rx=\"6\" fill=\"#ffffff\" opacity=\"0.92\"/>\n        <rect x=\"94\" y=\"126\" width=\"28\" height=\"6\" rx=\"2\" fill=\"#2E7BD6\"/>\n        <rect x=\"94\" y=\"136\" width=\"20\" height=\"6\" rx=\"2\" fill=\"#F6B93B\"/>\n      </g>\n\n      <!-- third small seated figure with tablet -->\n      <g transform=\"translate(300,500)\">\n        <ellipse cx=\"45\" cy=\"185\" rx=\"100\" ry=\"12\" fill=\"#000\" opacity=\"0.15\"/>\n        <path d=\"M10 100 Q4 46 45 42 Q86 46 80 100 L86 180 L6 180 Z\" fill=\"#2E7BD6\"/>\n        <circle cx=\"45\" cy=\"20\" r=\"20\" fill=\"#F3C89B\"/>\n        <path d=\"M27 14 Q45 -3 63 14 Q65 2 45 0 Q25 2 27 14Z\" fill=\"#0F2540\"/>\n        <rect x=\"20\" y=\"105\" width=\"50\" height=\"34\" rx=\"6\" fill=\"#F6B93B\"/>\n      </g>\n\n      <!-- floating stars -->\n      <g fill=\"#F6B93B\">\n        <path d=\"M980 200 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z\" opacity=\"0.85\"/>\n        <path d=\"M420 380 l3 7 8 1 -6 6 1 8 -6 -4 -6 4 1 -8 -6 -6 8 -1z\" opacity=\"0.7\"/>\n        <path d=\"M1080 470 l3 7 8 1 -6 6 1 8 -6 -4 -6 4 1 -8 -6 -6 8 -1z\" opacity=\"0.65\"/>\n      </g>\n    </svg>\n  </div>\n\n  <div class=\"wrap hero-inner\">\n    <div class=\"hero-tag\"><i></i> Ekosistem Teknologi untuk Semua</div>\n    <h1>Teknologi yang<br>Memberi <em>Kesempatan Kedua.</em></h1>\n    <p class=\"lead\">Dari servis gadget, jual-beli terpercaya, hingga menghubungkan perangkat menganggur dengan mahasiswa yang sedang memperjuangkan mimpinya.</p>\n    <div class=\"hero-actions\">\n      <a href=\"#layanan\" class=\"btn-primary\">\n        Jelajahi Layanan\n        <svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"#0F2540\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>\n      </a>\n      <a href=\"#second-chance\" class=\"btn-outline\">Mulai Sekarang</a>\n    </div>\n  </div>\n\n  <div class=\"hero-caption\">\n    PERANGKAT LAMA<br><strong>MIMPI BARU</strong>\n  </div>\n\n  <div class=\"chat-bubble\">\n    <div class=\"chat-tip\">Butuh bantuan memilih layanan?</div>\n    <div class=\"chat-avatar\">\n      <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z\"/></svg>\n      <div class=\"chat-dot\"></div>\n    </div>\n  </div>\n</header>\n\n<!-- ===================== QUICK ACCESS PANEL ===================== -->\n<div class=\"wrap quickpanel\">\n  <div class=\"quickpanel-card\">\n    <div class=\"qp-tab active\">\n      <div class=\"qp-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2\"><path d=\"M14 4l6 6-9 9-6 1 1-6 8-8z\"/><path d=\"M4 21h16\"/></svg></div>\n      <div class=\"qp-text\"><b>Dokter Gadget</b><span>Servis profesional, teknisi terpercaya</span></div>\n    </div>\n    <div class=\"qp-divider\"></div>\n    <div class=\"qp-tab\">\n      <div class=\"qp-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M3 9l9-6 9 6-9 6-9-6z\"/><path d=\"M3 9v7l9 6 9-6V9\"/></svg></div>\n      <div class=\"qp-text\"><b>Marketplace</b><span>Jual-beli gadget & sparepart</span></div>\n    </div>\n    <div class=\"qp-divider\"></div>\n    <div class=\"qp-tab\">\n      <div class=\"qp-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M12 2l2.4 6.8 7.1.5-5.6 4.4 1.9 7-6.4-4.1-6.4 4.1 1.9-7L1.5 9.3l7.1-.5z\"/></svg></div>\n      <div class=\"qp-text\"><b>Second Chance</b><span>Perangkat menganggur, mimpi terwujud</span></div>\n    </div>\n  </div>\n</div>\n\n<!-- ===================== SERVICES ===================== -->\n<section class=\"section services\" id=\"layanan\">\n  <div class=\"wrap\">\n    <div class=\"section-head\">\n      <div class=\"eyebrow\">Tiga Layanan Utama</div>\n      <h2>Satu ekosistem, banyak cara untuk membantu.</h2>\n      <p>Setiap layanan dirancang untuk membuat teknologi lebih bermanfaat — bukan sekadar diperjualbelikan.</p>\n    </div>\n    <div class=\"service-grid\">\n\n      <div class=\"service-card blue\">\n        <div class=\"service-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M14 4l6 6-9 9-6 1 1-6 8-8z\"/><path d=\"M4 21h16\"/></svg></div>\n        <h3>Dokter Gadget</h3>\n        <p>Layanan servis gadget profesional dengan teknisi terpercaya — laptop, HP, hingga printer, ditangani dengan transparan.</p>\n        <a href=\"#\" class=\"service-link\">Lihat Layanan <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>\n      </div>\n\n      <div class=\"service-card blue\">\n        <div class=\"service-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M3 9l9-6 9 6-9 6-9-6z\"/><path d=\"M3 9v7l9 6 9-6V9\"/></svg></div>\n        <h3>Marketplace</h3>\n        <p>Tempat jual-beli gadget dan sparepart bekas maupun baru, dengan verifikasi kondisi yang jelas dan adil.</p>\n        <a href=\"#\" class=\"service-link\">Jelajahi Marketplace <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>\n      </div>\n\n      <div class=\"service-card dual\">\n        <span class=\"service-badge\">Paling Berdampak</span>\n        <div class=\"service-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#E8A324\" stroke-width=\"2\"><path d=\"M12 2l2.4 6.8 7.1.5-5.6 4.4 1.9 7-6.4-4.1-6.4 4.1 1.9-7L1.5 9.3l7.1-.5z\"/></svg></div>\n        <h3>Second Chance</h3>\n        <p>Menghubungkan perangkat yang tidak terpakai dengan mahasiswa yang sedang memperjuangkan mimpinya.</p>\n        <a href=\"#second-chance\" class=\"service-link\">Masuk ke Second Chance <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>\n      </div>\n\n    </div>\n  </div>\n</section>\n\n<!-- ===================== SECOND CHANCE STRIP ===================== -->\n<section class=\"section section-tight\" id=\"second-chance\">\n  <div class=\"wrap\">\n    <div class=\"sc-strip\">\n      <div class=\"sc-grid\">\n        <div>\n          <div class=\"eyebrow\" style=\"color:var(--yellow-500);\">Second Chance</div>\n          <h2 style=\"margin-top:12px;\">Setiap Mimpi Berhak Mendapatkan Kesempatan Kedua.</h2>\n          <p>Ribuan laptop dan kamera hanya tersimpan di lemari, sementara ribuan mahasiswa menunda skripsi, lomba, dan penelitian karena belum punya perangkat yang memadai. Mari mempertemukan kesempatan dengan mimpi.</p>\n          <div class=\"rail\"><div class=\"r1\"></div><div class=\"r2\"></div><div class=\"r3\"></div></div>\n        </div>\n        <div class=\"sc-cards\">\n          <div class=\"sc-card star\">\n            <div class=\"sc-card-icon\"><svg viewBox=\"0 0 24 24\" fill=\"#0F2540\"><path d=\"M12 2l2.4 6.8 7.1.5-5.6 4.4 1.9 7-6.4-4.1-6.4 4.1 1.9-7L1.5 9.3l7.1-.5z\"/></svg></div>\n            <div><h4>Jadi Bintang Mimpi</h4><p>Pinjamkan atau berikan perangkatmu</p></div>\n            <div class=\"sc-card-btn\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></div>\n          </div>\n          <div class=\"sc-card fighter\">\n            <div class=\"sc-card-icon\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#1A4C8C\" stroke-width=\"2\"><path d=\"M12 2l2.4 6.8 7.1.5-5.6 4.4 1.9 7-6.4-4.1-6.4 4.1 1.9-7L1.5 9.3l7.1-.5z\"/></svg></div>\n            <div><h4>Jadi Pejuang Mimpi</h4><p>Ajukan kebutuhan perangkatmu</p></div>\n            <div class=\"sc-card-btn\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#fff\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<!-- ===================== WALL OF DREAMS ===================== -->\n<section class=\"section\" id=\"wall-of-dreams\" style=\"padding-top:20px;\">\n  <div class=\"wrap\">\n    <div class=\"section-head center\" style=\"max-width:560px;\">\n      <div class=\"eyebrow\" style=\"color:var(--blue-500);\">Wall of Dreams</div>\n      <h2>Kisah nyata di balik setiap kesempatan kedua.</h2>\n      <p>Cerita para Pejuang Mimpi yang berhasil melangkah lebih jauh, berkat perangkat yang dulunya hanya tersimpan di lemari.</p>\n    </div>\n    <div class=\"wod-grid\">\n\n      <div class=\"wod-card\">\n        <div class=\"wod-stage g\"></div>\n        <div class=\"wod-photo\" style=\"background:linear-gradient(135deg,#2E7BD6,#12305A);\">\n          <div class=\"wod-name\">Amara R. <span>Universitas Brawijaya</span></div>\n        </div>\n        <div class=\"wod-body\">\n          <span class=\"wod-tag\">🎓 Mimpi Tercapai</span>\n          <div class=\"wod-dream\">Menyelesaikan skripsi penelitian pangan lokal.</div>\n          <div class=\"wod-ba\">\n            <div><b>Sebelum</b>Menunda skripsi 8 bulan</div>\n            <div><b>Sesudah</b>Lulus tepat waktu, cum laude</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"wod-card\">\n        <div class=\"wod-stage g\"></div>\n        <div class=\"wod-photo\" style=\"background:linear-gradient(135deg,#F6B93B,#E8A324);\">\n          <div class=\"wod-name\">Dimas P. <span>Politeknik Negeri Bandung</span></div>\n        </div>\n        <div class=\"wod-body\">\n          <span class=\"wod-tag\">🏆 Mimpi Tercapai</span>\n          <div class=\"wod-dream\">Juara 1 kompetisi robotika nasional.</div>\n          <div class=\"wod-ba\">\n            <div><b>Sebelum</b>Laptop tak kuat untuk simulasi</div>\n            <div><b>Sesudah</b>Juara nasional, dilirik startup</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"wod-card\">\n        <div class=\"wod-stage g\"></div>\n        <div class=\"wod-photo\" style=\"background:linear-gradient(135deg,#2FA96B,#12305A);\">\n          <div class=\"wod-name\">Siti N. <span>Universitas Hasanuddin</span></div>\n        </div>\n        <div class=\"wod-body\">\n          <span class=\"wod-tag\">🎥 Mimpi Tercapai</span>\n          <div class=\"wod-dream\">Menjadi content creator edukasi pertanian.</div>\n          <div class=\"wod-ba\">\n            <div><b>Sebelum</b>Tak punya kamera untuk konten</div>\n            <div><b>Sesudah</b>32rb pengikut, dampak nyata</div>\n          </div>\n        </div>\n      </div>\n\n    </div>\n  </div>\n</section>\n\n<!-- ===================== HOPE MAP ===================== -->\n<section class=\"section\" id=\"peta-harapan\" style=\"background:var(--bg-soft);\">\n  <div class=\"wrap hopemap-grid\">\n    <div>\n      <div class=\"eyebrow\" style=\"color:var(--blue-500);\">Peta Harapan</div>\n      <h2 style=\"font-size:34px; font-weight:800; margin-top:12px; letter-spacing:-.02em;\">Lihat siapa saja yang saling terhubung di kotamu.</h2>\n      <p style=\"color:var(--ink-soft); margin-top:14px; line-height:1.7;\">Peta interaktif menunjukkan sebaran Bintang Mimpi dan Pejuang Mimpi di seluruh Indonesia. Klik sebuah kota untuk melihat perangkat yang tersedia dan yang paling dibutuhkan.</p>\n      <div class=\"map-legend\">\n        <div><i style=\"background:var(--green-500);\"></i> Bintang Mimpi</div>\n        <div><i style=\"background:var(--coral-500);\"></i> Pejuang Mimpi</div>\n      </div>\n      <div class=\"map-stats\">\n        <div class=\"map-stat\"><b>1.284</b><span>Bintang Mimpi aktif</span></div>\n        <div class=\"map-stat\"><b>3.906</b><span>Pejuang Mimpi terdaftar</span></div>\n        <div class=\"map-stat\"><b>612</b><span>Perangkat tersedia</span></div>\n        <div class=\"map-stat\"><b>34</b><span>Provinsi terjangkau</span></div>\n      </div>\n    </div>\n    <div class=\"map-card\">\n      <svg viewBox=\"0 0 500 260\" style=\"width:100%;\">\n        <path d=\"M20 140 Q60 110 110 130 T220 120 T340 140 T480 130\" stroke=\"#D9E3F0\" stroke-width=\"14\" fill=\"none\" stroke-linecap=\"round\" opacity=\"0.7\"/>\n        <circle cx=\"70\" cy=\"128\" r=\"7\" fill=\"#2FA96B\"/>\n        <circle cx=\"150\" cy=\"118\" r=\"5\" fill=\"#E4574E\"/>\n        <circle cx=\"230\" cy=\"132\" r=\"8\" fill=\"#2FA96B\"/>\n        <circle cx=\"300\" cy=\"124\" r=\"6\" fill=\"#E4574E\"/>\n        <circle cx=\"360\" cy=\"140\" r=\"6\" fill=\"#2FA96B\"/>\n        <circle cx=\"420\" cy=\"128\" r=\"9\" fill=\"#E4574E\"/>\n        <circle cx=\"230\" cy=\"132\" r=\"16\" fill=\"#2FA96B\" opacity=\"0.18\"/>\n        <circle cx=\"420\" cy=\"128\" r=\"18\" fill=\"#E4574E\" opacity=\"0.18\"/>\n      </svg>\n      <p style=\"text-align:center; font-size:12.5px; color:var(--ink-soft); margin-top:10px; font-weight:600;\">Pratinjau — peta lengkap interaktif tersedia di halaman Peta Harapan</p>\n    </div>\n  </div>\n</section>\n\n<!-- ===================== FINAL CTA ===================== -->\n<section class=\"final-cta\">\n  <div class=\"wrap\">\n    <h2>Punya perangkat yang menganggur, atau sedang memperjuangkan mimpi?</h2>\n    <p>Mulai langkahmu hari ini — sebagai Bintang Mimpi atau Pejuang Mimpi.</p>\n    <div class=\"hero-actions\">\n      <a href=\"#\" class=\"btn-primary\">Menjadi Bintang Mimpi</a>\n      <a href=\"#\" class=\"btn-outline\">Mulai Perjalananmu</a>\n    </div>\n  </div>\n</section>\n\n<!-- ===================== FOOTER ===================== -->\n<footer>\n  <div class=\"wrap\">\n    <div class=\"foot-grid\">\n      <div class=\"foot-brand\">\n        <div class=\"brand\">\n          <div class=\"brand-mark\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M12 2L14.4 8.8L21.5 9.3L15.9 13.7L17.8 20.7L12 16.6L6.2 20.7L8.1 13.7L2.5 9.3L9.6 8.8L12 2Z\" fill=\"#0F2540\"/></svg></div>\n          <div class=\"brand-name\">TechCare<span>IDN</span></div>\n        </div>\n        <p>Ekosistem teknologi yang mempertemukan perangkat, kesempatan, dan mimpi. Teknologi mampu mengubah masa depan seseorang.</p>\n      </div>\n      <div><h5>Layanan</h5><ul><li><a href=\"#\">Dokter Gadget</a></li><li><a href=\"#\">Marketplace</a></li><li><a href=\"#\">Second Chance</a></li></ul></div>\n      <div><h5>Second Chance</h5><ul><li><a href=\"#\">Jadi Bintang Mimpi</a></li><li><a href=\"#\">Jadi Pejuang Mimpi</a></li><li><a href=\"#\">Wall of Dreams</a></li><li><a href=\"#\">Peta Harapan</a></li></ul></div>\n      <div><h5>Perusahaan</h5><ul><li><a href=\"#\">Tentang Kami</a></li><li><a href=\"#\">Karier</a></li><li><a href=\"#\">Kontak</a></li></ul></div>\n    </div>\n    <div class=\"foot-bottom\">\n      <span>© 2026 TechCareIDN. Seluruh hak cipta dilindungi.</span>\n      <span>Dibuat dengan 💙 untuk masa depan yang lebih adil.</span>\n    </div>\n  </div>\n</footer>";
+  const [current, setCurrent] = useState(0);
+  const slide = slides[current];
+
+  function changeSlide(dir: number) {
+    setCurrent((prev) => (prev + dir + slides.length) % slides.length);
+  }
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: landingCss }} />
-      <div dangerouslySetInnerHTML={{ __html: landingHtml }} />
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root{
+          --navy:#0D2745;
+          --navy-deep:#081A30;
+          --blue:#1F4E8C;
+          --blue-soft:#2E63AA;
+          --sky:#6FA3D6;
+          --sky-pale:#EAF2FA;
+          --mint-pale:#E3F5EE;
+          --mint:#3F8F6B;
+          --gold:#C69A3E;
+          --gold-soft:#E4C878;
+          --gold-pale:#FBF0DB;
+          --lilac-pale:#EFEAFB;
+          --lilac:#7C63C9;
+          --paper:#F7F9FC;
+          --white:#FFFFFF;
+          --ink:#16233A;
+          --ink-soft:#5A6B82;
+          --line:#E7EDF4;
+        }
+        *{box-sizing:border-box; margin:0; padding:0;}
+        html{scroll-behavior:smooth; overflow-x:hidden;}
+        body{overflow-x:hidden; font-family:'Inter',sans-serif; color:var(--ink); background:var(--paper); line-height:1.55; -webkit-font-smoothing:antialiased;}
+        img,svg{display:block; max-width:100%;}
+        a{color:inherit; text-decoration:none;}
+        ul{list-style:none;}
+        .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+        h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; color:var(--navy); line-height:1.15;}
+        .eyebrow{font-family:'Inter',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:9px;}
+        .eyebrow::before{content:""; width:20px; height:2px; background:var(--gold);}
+        .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 26px; border-radius:999px; font-weight:700; font-size:14.5px; cursor:pointer; border:1.5px solid transparent; transition:all .2s ease;}
+        .btn-primary{background:var(--navy); color:#fff;}
+        .btn-primary:hover{background:var(--blue); transform:translateY(-1px);}
+        .btn-outline-navy{border-color:var(--line); color:var(--navy); background:#fff;}
+        .btn-outline-navy:hover{border-color:var(--navy);}
+
+        .site-topbar{position:sticky; top:0; z-index:70; background:#fff; box-shadow:0 1px 0 rgba(13,39,69,.02);}
+        header{background:#fff; position:relative; z-index:2; border-bottom:1px solid var(--line);}
+        .nav-inner{display:flex; align-items:center; justify-content:space-between; height:74px;}
+        .logo{display:flex; align-items:center; gap:11px;}
+        .logo-mark{width:36px; height:36px;}
+        .logo-text{font-family:'Fraunces',serif; font-size:19.5px; font-weight:700; color:var(--navy);}
+        .logo-text span{display:block; font-family:'Inter',sans-serif; font-size:10px; font-weight:800; letter-spacing:.1em; color:var(--ink-soft); text-transform:uppercase; margin-top:1px;}
+        nav.main-nav{display:flex; gap:28px;}
+        nav.main-nav a{color:var(--ink); font-size:14.5px; font-weight:600; transition:color .2s;}
+        nav.main-nav a:hover, nav.main-nav a.active{color:var(--blue); font-weight:700;}
+        .nav-right{display:flex; align-items:center; gap:14px;}
+        .search-box{display:flex; align-items:center; gap:8px; background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:9px 16px; font-size:13.5px; color:var(--ink-soft); width:190px;}
+        .icon-btn{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--navy); cursor:pointer; transition:background .2s; position:relative; background:var(--paper);}
+        .icon-btn:hover{background:var(--sky-pale);}
+        .cart-count{position:absolute; top:-3px; right:-3px; background:var(--gold); color:var(--navy-deep); font-size:10px; font-weight:800; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+
+        .ticker-bar{position:relative; z-index:1; background:var(--navy); color:#fff; display:flex; align-items:center; height:42px; overflow:hidden; max-width:100vw; isolation:isolate;}
+        .ticker-tag{background:var(--gold); color:var(--navy-deep); font-size:11.5px; font-weight:800; letter-spacing:.06em; padding:0 18px; height:100%; display:flex; align-items:center; flex-shrink:0; position:relative; z-index:2; box-shadow:12px 0 18px rgba(13,39,69,.28);}
+        .ticker-track{position:absolute; left:88px; right:0; top:0; height:100%; min-width:max-content; display:flex; align-items:center; gap:56px; white-space:nowrap; animation:scroll-left 32s linear infinite; padding-left:24px; font-size:13px; color:rgba(255,255,255,.85); will-change:transform;}
+        .ticker-track span{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+        .ticker-track span::before{content:"•"; color:var(--gold);}
+        @keyframes scroll-left{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+        .hero{padding:44px 0 0; background:#fff;}
+        .hero-row{display:flex; align-items:center; gap:8px;}
+        .hero-nav-btn{width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; color:var(--navy); cursor:pointer; flex-shrink:0; transition:all .2s;}
+        .hero-nav-btn:hover{border-color:var(--navy); background:var(--navy); color:#fff;}
+        .hero-main{display:grid; grid-template-columns:1.15fr .85fr; gap:52px; align-items:center; flex:1;}
+        .hero-label{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+        .hero-label .bar{width:26px; height:3px; background:var(--gold);}
+        .hero-label b{font-size:12.5px; font-weight:800; letter-spacing:.1em; color:var(--gold); text-transform:uppercase;}
+        .hero-label .count{font-size:12.5px; color:var(--ink-soft); font-weight:600;}
+        .hero-text h1{font-size:38px; letter-spacing:-.01em; margin-bottom:18px;}
+        .hero-text p{color:var(--ink-soft); font-size:15.5px; max-width:510px; margin-bottom:24px;}
+        .hero-byline{display:flex; align-items:center; gap:12px;}
+        .avatar-sm{width:34px; height:34px; border-radius:50%; background:var(--sky-pale); display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; color:var(--blue); font-size:13px;}
+        .hero-byline .meta{font-size:13px; color:var(--ink-soft);}
+        .hero-byline .meta b{color:var(--navy); font-weight:700;}
+        .hero-image{position:relative; border-radius:16px; overflow:hidden; aspect-ratio:4/3.1; background-size:cover; background-position:center;}
+        .hero-image.t1{background:linear-gradient(135deg, rgba(13,39,69,.10), rgba(198,154,62,.14)), radial-gradient(circle at 30% 25%, #EAF2FA, transparent 32%), linear-gradient(135deg,#F7F9FC,#D7E7F7);}
+        .hero-image.t2{background:linear-gradient(135deg, rgba(31,78,140,.14), rgba(63,143,107,.12)), radial-gradient(circle at 75% 30%, #FBF0DB, transparent 30%), linear-gradient(135deg,#EAF2FA,#FFFFFF);}
+        .hero-image.t3{background:linear-gradient(135deg, rgba(198,154,62,.22), rgba(124,99,201,.12)), radial-gradient(circle at 35% 70%, #EFEAFB, transparent 34%), linear-gradient(135deg,#FFFFFF,#FBF0DB);}
+        .hero-visual-device{position:absolute; inset:18% 15%; border-radius:22px; background:rgba(255,255,255,.82); border:1px solid rgba(255,255,255,.72); box-shadow:0 22px 45px rgba(13,39,69,.16); display:flex; align-items:center; justify-content:center; font-size:68px;}
+        .hero-image .cat-tag{position:absolute; top:16px; left:16px; background:rgba(13,39,69,.85); color:#fff; font-size:11px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; padding:6px 13px; border-radius:999px;}
+        .hero-image .cap{position:absolute; bottom:0; left:0; right:0; padding:40px 20px 18px; background:linear-gradient(0deg, rgba(8,26,48,.88), transparent); color:#fff; font-family:'Fraunces',serif; font-size:16.5px; font-weight:600; line-height:1.35;}
+        .hero-dots{display:flex; justify-content:center; gap:7px; margin:26px 0 14px;}
+        .hero-dots .dot{width:7px; height:7px; border-radius:50%; background:var(--line); cursor:pointer; transition:all .25s; border:none;}
+        .hero-dots .dot.active{width:22px; border-radius:4px; background:var(--gold);}
+        .cat-tabs{display:flex; gap:30px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:16px 0; overflow-x:auto;}
+        .cat-tabs a{font-size:13.5px; font-weight:700; color:var(--ink-soft); white-space:nowrap; padding-bottom:4px; border-bottom:2px solid transparent; transition:all .2s;}
+        .cat-tabs a:hover{color:var(--navy);}
+        .cat-tabs a.active{color:var(--gold); border-color:var(--gold);}
+
+        .section-head{max-width:640px; margin-bottom:36px;}
+        .section-head h2{font-size:29px; margin-top:12px;}
+        .section-head p{color:var(--ink-soft); margin-top:12px; font-size:15px;}
+        .app-grid-section{padding:76px 0 10px;}
+        .app-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+        .app-card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:30px 24px; text-align:left; transition:transform .2s ease, box-shadow .2s ease; cursor:pointer;}
+        .app-card:hover{transform:translateY(-4px); box-shadow:0 18px 34px -20px rgba(13,39,69,.25);}
+        .app-badge{width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin-bottom:24px;}
+        .app-card h4{font-size:20px; margin-bottom:8px;}
+        .app-card span{font-size:14px; color:var(--ink-soft); display:block;}
+
+        .cta-banner-wrap{padding:56px 0 12px;}
+        .cta-banner{background:linear-gradient(135deg,var(--navy),var(--blue)); color:#fff; border-radius:24px; padding:28px 32px; display:flex; align-items:center; gap:20px; box-shadow:0 22px 45px -28px rgba(13,39,69,.65);}
+        .cta-icon{width:52px; height:52px; border-radius:16px; background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+        .cta-banner h4{color:#fff; font-size:22px; margin-bottom:5px;}
+        .cta-banner p{color:rgba(255,255,255,.76); font-size:14.5px; max-width:720px;}
+        .cta-arrow{margin-left:auto; width:38px; height:38px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+
+        .recent-section{padding:66px 0;}
+        .recent-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;}
+        .recent-head h3{font-size:27px;}
+        .recent-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+        .recent-card{background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; transition:transform .2s, box-shadow .2s;}
+        .recent-card:hover{transform:translateY(-3px); box-shadow:0 18px 34px -24px rgba(13,39,69,.38);}
+        .recent-thumb{height:150px; position:relative; background-size:cover; background-position:center;}
+        .recent-thumb.t1{background:linear-gradient(135deg,#EAF2FA,#BFD8F0);}
+        .recent-thumb.t2{background:linear-gradient(135deg,#FBF0DB,#E4C878);}
+        .recent-thumb.t3{background:linear-gradient(135deg,#E3F5EE,#B7E3D0);}
+        .recent-thumb.t4{background:linear-gradient(135deg,#EFEAFB,#D6C8F6);}
+        .recent-thumb .tag{position:absolute; top:12px; left:12px; background:#fff; color:var(--navy); border-radius:999px; padding:5px 11px; font-size:11px; font-weight:800;}
+        .recent-body{padding:18px;}
+        .recent-body h4{font-size:17px; line-height:1.28; margin-bottom:12px;}
+        .recent-body p{font-size:13.5px; color:var(--ink-soft); margin-bottom:13px;}
+        .recent-meta{display:flex; gap:8px; align-items:center; color:var(--ink-soft); font-size:12.5px;}
+
+        .signs{padding:72px 0; background:#fff;}
+        .signs-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+        .sign-card{border:1px solid var(--line); border-radius:18px; padding:24px; background:linear-gradient(180deg,#fff,var(--paper));}
+        .sign-num{font-family:'Fraunces',serif; font-size:28px; color:var(--gold); margin-bottom:18px;}
+        .sign-card h4{font-size:18px; margin-bottom:10px;}
+        .sign-card p{color:var(--ink-soft); font-size:14px;}
+
+        .product-section{padding:72px 0;}
+        .product-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; align-items:stretch;}
+        .feature-card{background:#fff; border:1px solid var(--line); border-radius:24px; padding:34px; display:grid; grid-template-columns:1fr .8fr; gap:28px; align-items:center;}
+        .feature-card h3{font-size:32px; margin-bottom:14px;}
+        .feature-card p{color:var(--ink-soft); margin-bottom:22px;}
+        .feature-visual{min-height:250px; border-radius:20px; background:linear-gradient(135deg,var(--sky-pale),var(--gold-pale)); position:relative; overflow:hidden;}
+        .feature-visual::after{content:'💻'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:92px; filter:drop-shadow(0 20px 25px rgba(13,39,69,.18));}
+        .mini-list{display:grid; gap:16px;}
+        .mini-card{background:#fff; border:1px solid var(--line); border-radius:20px; padding:22px; display:flex; gap:14px; align-items:flex-start;}
+        .mini-icon{width:44px; height:44px; flex:none; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--gold-pale); color:var(--navy); font-size:22px;}
+        .mini-card h4{font-size:18px; margin-bottom:5px;}
+        .mini-card p{font-size:13.5px; color:var(--ink-soft);}
+
+        .testi{padding:72px 0; background:#fff;}
+        .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+        .testi-card{background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:26px;}
+        .testi-quote{color:var(--ink); font-family:'Fraunces',serif; font-size:18px; line-height:1.45; margin-bottom:22px;}
+        .testi-person{display:flex; gap:12px; align-items:center;}
+        .testi-avatar{width:38px; height:38px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800;}
+        .testi-person b{display:block; font-size:14px;}
+        .testi-person span{display:block; font-size:12.5px; color:var(--ink-soft);}
+
+        .news-cta{padding:72px 0;}
+        .news-cta-box{background:var(--navy); border-radius:26px; padding:38px; display:flex; align-items:center; justify-content:space-between; gap:28px; color:#fff;}
+        .news-cta h3{color:#fff; font-size:30px; margin-bottom:8px;}
+        .news-cta p{color:rgba(255,255,255,.72); max-width:560px;}
+        .news-form{display:flex; gap:10px; background:#fff; padding:8px; border-radius:999px; min-width:390px;}
+        .news-form input{border:none; outline:none; flex:1; padding:0 16px; font-size:14px; color:var(--ink);}
+        .news-form .btn{background:var(--gold); color:var(--navy-deep); padding:11px 20px;}
+
+        footer{background:var(--navy-deep); color:rgba(255,255,255,.68); padding:58px 0 26px;}
+        .footer-grid{display:grid; grid-template-columns:1.4fr .7fr .7fr .7fr; gap:34px;}
+        .footer-logo{display:flex; align-items:center; gap:10px; color:#fff; font-family:'Fraunces',serif; font-size:20px; font-weight:700; margin-bottom:14px;}
+        footer p{font-size:14px; max-width:430px;}
+        .emergency-box{margin-top:20px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:16px; display:grid; gap:5px;}
+        .emergency-box b{color:#fff;}
+        .emergency-box span{font-size:13px;}
+        .footer-col h5{color:#fff; font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}
+        .footer-col li{margin-bottom:9px;}
+        .footer-col a:hover{color:#fff;}
+        .footer-bottom{border-top:1px solid rgba(255,255,255,.1); margin-top:34px; padding-top:20px; display:flex; justify-content:space-between; gap:18px; font-size:12.5px;}
+
+        @media(max-width:980px){
+          nav.main-nav,.search-box{display:none;}
+          .hero-main,.product-grid,.feature-card{grid-template-columns:1fr; gap:26px;}
+          .app-grid,.recent-grid,.signs-grid{grid-template-columns:repeat(2,1fr);}
+          .testi-grid,.footer-grid{grid-template-columns:1fr;}
+          .news-cta-box{display:block;}
+          .news-form{min-width:0; margin-top:22px;}
+        }
+        @media(max-width:640px){
+          .wrap{padding:0 20px;}
+          .nav-inner{height:auto; padding:14px 20px; align-items:flex-start; gap:14px;}
+          .nav-right .btn{display:none;}
+          .hero{padding-top:30px;}
+          .hero-row{align-items:flex-start;}
+          .hero-nav-btn{display:none;}
+          .hero-text h1{font-size:31px;}
+          .app-grid,.recent-grid,.signs-grid{grid-template-columns:1fr;}
+          .cta-banner{align-items:flex-start; padding:24px;}
+          .cta-arrow{display:none;}
+          .news-form{border-radius:22px; display:grid;}
+          .news-form input{min-height:42px;}
+          .footer-bottom{display:grid;}
+        }
+      `}</style>
+
+      <div className="site-topbar">
+        <header>
+          <div className="wrap nav-inner">
+            <Link href="/" className="logo">
+              <svg className="logo-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" strokeWidth="1.6"/>
+                <path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/>
+                <path d="M14 25h16" stroke="#F5F8FB" strokeWidth="2.2" strokeLinecap="round"/>
+                <rect x="14" y="15" width="16" height="10" rx="2" fill="#F5F8FB"/>
+              </svg>
+              <div className="logo-text">TechCareIDN<span>Second Chance Tech Platform</span></div>
+            </Link>
+            <nav className="main-nav">
+              <a href="#beranda" className="active">Beranda</a>
+              <a href="#layanan">Layanan</a>
+              <a href="#perangkat">Perangkat</a>
+              <a href="#wall-of-dreams">Wall of Dreams</a>
+              <a href="#komunitas">Komunitas</a>
+            </nav>
+            <div className="nav-right">
+              <div className="search-box">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                Cari perangkat…
+              </div>
+              <Link className="icon-btn" href="/dashboard" aria-label="Dashboard">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+                <span className="cart-count">3</span>
+              </Link>
+              <Link href="/login" className="btn btn-outline-navy" style={{padding:"10px 18px", fontSize:"13.5px"}}>Masuk</Link>
+              <Link href="/register" className="btn btn-primary" style={{padding:"10px 22px", fontSize:"13.5px"}}>Gabung</Link>
+            </div>
+          </div>
+        </header>
+        <div className="ticker-bar">
+          <div className="ticker-tag">TERKINI</div>
+          <div className="ticker-track">
+            <span>Program Second Chance membuka daftar Pejuang Mimpi batch pertama</span>
+            <span>Upload perangkat kini mendukung foto cepat via Cloudinary</span>
+            <span>Wall of Dreams menampilkan cerita bertumbuh dan berhasil</span>
+            <span>Program Second Chance membuka daftar Pejuang Mimpi batch pertama</span>
+            <span>Upload perangkat kini mendukung foto cepat via Cloudinary</span>
+            <span>Wall of Dreams menampilkan cerita bertumbuh dan berhasil</span>
+          </div>
+        </div>
+      </div>
+
+      <section className="hero" id="beranda">
+        <div className="wrap">
+          <div className="hero-row">
+            <button className="hero-nav-btn" onClick={() => changeSlide(-1)} aria-label="Slide sebelumnya">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div className="hero-main">
+              <div className="hero-text">
+                <div className="hero-label"><span className="bar"/><b>Laporan Utama</b><span className="count">0{current + 1} / 03</span></div>
+                <h1>{slide.title}</h1>
+                <p>{slide.excerpt}</p>
+                <div className="hero-byline">
+                  <div className="avatar-sm">{slide.initial}</div>
+                  <div className="meta"><b>{slide.author}</b> · <span>{slide.date}</span> · <span>{slide.read}</span></div>
+                </div>
+              </div>
+              <div className={`hero-image ${slide.thumb}`}>
+                <div className="cat-tag">{slide.tag}</div>
+                <div className="hero-visual-device">💻</div>
+                <div className="cap">{slide.title.split(":")[0]}</div>
+              </div>
+            </div>
+            <button className="hero-nav-btn" onClick={() => changeSlide(1)} aria-label="Slide berikutnya">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+          <div className="hero-dots">
+            {slides.map((_, i) => <button key={i} className={`dot ${i === current ? "active" : ""}`} onClick={() => setCurrent(i)} aria-label={`Slide ${i + 1}`} />)}
+          </div>
+          <div className="cat-tabs">
+            <a href="#" className="active">Untuk Kamu</a>
+            <a href="#layanan">Layanan</a>
+            <a href="#perangkat">Perangkat</a>
+            <a href="#wall-of-dreams">Wall of Dreams</a>
+            <a href="#komunitas">Komunitas</a>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/register">Daftar Pejuang</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="app-grid-section" id="layanan">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="eyebrow">Mulai dari sini</div>
+            <h2>Empat ruang, satu tujuan</h2>
+          </div>
+          <div className="app-grid">
+            <Link className="app-card" href="/dashboard">
+              <div className="app-badge" style={{background:"var(--sky-pale)"}}>🛠️</div>
+              <h4>Dokter Gadget</h4><span>Cek, rawat, dan catat kondisi perangkat</span>
+            </Link>
+            <Link className="app-card" href="/dashboard">
+              <div className="app-badge" style={{background:"var(--gold-pale)"}}>💻</div>
+              <h4>Marketplace</h4><span>Katalog pinjam perangkat murah atau gratis</span>
+            </Link>
+            <Link className="app-card" href="/register">
+              <div className="app-badge" style={{background:"var(--mint-pale)"}}>🌱</div>
+              <h4>Second Chance</h4><span>Alur bantuan untuk Pejuang Mimpi</span>
+            </Link>
+            <a className="app-card" href="#wall-of-dreams">
+              <div className="app-badge" style={{background:"var(--lilac-pale)"}}>✨</div>
+              <h4>Wall of Dreams</h4><span>Cerita target, proses, dan pencapaian</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-banner-wrap">
+        <div className="wrap">
+          <Link className="cta-banner" href="/register">
+            <div className="cta-icon">⚡</div>
+            <div>
+              <h4>Ubah perangkat tidak terpakai jadi kesempatan baru</h4>
+              <p>Gabung sebagai Bintang untuk mengunggah perangkat, atau sebagai Pejuang untuk menulis mimpi dan mengajukan peminjaman.</p>
+            </div>
+            <div className="cta-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg></div>
+          </Link>
+        </div>
+      </section>
+
+      <section className="recent-section" id="perangkat">
+        <div className="wrap">
+          <div className="recent-head"><h3>Ruang perangkat & cerita terbaru</h3><Link className="btn btn-outline-navy" href="/dashboard">Buka dashboard</Link></div>
+          <div className="recent-grid">
+            {recentItems.map(([tag, title, desc, thumb]) => (
+              <a className="recent-card" href="#" key={title}>
+                <div className={`recent-thumb ${thumb}`}><span className="tag">{tag}</span></div>
+                <div className="recent-body"><h4>{title}</h4><p>{desc}</p><div className="recent-meta"><span>TechCareIDN</span><span>·</span><span>Terbaru</span></div></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="signs" id="wall-of-dreams">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="eyebrow">Wall of Dreams</div>
+            <h2>Status mimpi yang mudah dipahami</h2>
+            <p>Struktur data dreams tetap menjadi pusat: Pejuang menulis judul mimpi, deskripsi, target, lalu statusnya bergerak dari sedang berjuang sampai berhasil.</p>
+          </div>
+          <div className="signs-grid">
+            <div className="sign-card"><div className="sign-num">01</div><h4>Sedang berjuang</h4><p>Pejuang baru menuliskan target, kebutuhan perangkat, dan rencana belajar.</p></div>
+            <div className="sign-card"><div className="sign-num">02</div><h4>Bertumbuh</h4><p>Perangkat mulai membantu kelas, tugas, karya, atau proses mencari kerja.</p></div>
+            <div className="sign-card"><div className="sign-num">03</div><h4>Berhasil</h4><p>Ada pencapaian yang bisa dibagikan kembali ke komunitas.</p></div>
+            <div className="sign-card"><div className="sign-num">04</div><h4>Achievement</h4><p>Cerita masuk ke Wall of Dreams agar Bintang melihat dampaknya.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="product-section">
+        <div className="wrap product-grid">
+          <div className="feature-card">
+            <div><div className="eyebrow">Marketplace</div><h3>Listing perangkat dengan rasa media komunitas</h3><p>Tampilan mengikuti struktur Pelita Anak: editorial, bersih, kredibel, dan mudah dibaca. Cocok untuk membangun rasa percaya sebelum user mengajukan peminjaman.</p><Link className="btn btn-primary" href="/dashboard">Tambah perangkat</Link></div>
+            <div className="feature-visual" />
+          </div>
+          <div className="mini-list">
+            <div className="mini-card"><div className="mini-icon">📍</div><div><h4>Lokasi jelas</h4><p>Simpan lokasi sebagai alamat atau koordinat untuk pencarian terdekat.</p></div></div>
+            <div className="mini-card"><div className="mini-icon">🪪</div><div><h4>Profil & KTM</h4><p>Upload foto profil dan KTM via Supabase Storage untuk proses verifikasi.</p></div></div>
+            <div className="mini-card"><div className="mini-icon">🔔</div><div><h4>Notifikasi</h4><p>Route WhatsApp sudah disiapkan untuk update status pengajuan.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="testi" id="komunitas">
+        <div className="wrap">
+          <div className="section-head"><div className="eyebrow">Suara komunitas</div><h2>Dibuat untuk Bintang, Pejuang, dan pendamping pendidikan</h2><p>Contoh narasi yang bisa dipakai untuk membangun kredibilitas awal platform.</p></div>
+          <div className="testi-grid">
+            <div className="testi-card"><p className="testi-quote">"Laptop lama saya ternyata bisa jadi alat belajar untuk orang lain. Proses upload-nya jelas dan sederhana."</p><div className="testi-person"><div className="testi-avatar">B</div><div><b>Bintang</b><span>Pemilik perangkat</span></div></div></div>
+            <div className="testi-card"><p className="testi-quote">"Saya bisa menulis mimpi, target, dan kebutuhan perangkat tanpa terasa seperti formulir bantuan yang kaku."</p><div className="testi-person"><div className="testi-avatar">P</div><div><b>Pejuang</b><span>Mahasiswa penerima dukungan</span></div></div></div>
+            <div className="testi-card"><p className="testi-quote">"Wall of Dreams membantu komunitas melihat dampak, bukan hanya angka donasi atau jumlah perangkat."</p><div className="testi-person"><div className="testi-avatar">K</div><div><b>Komunitas</b><span>Pendamping program</span></div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="news-cta">
+        <div className="wrap">
+          <div className="news-cta-box">
+            <div><h3>Siap mulai TechCareIDN?</h3><p>Masuk untuk mengelola perangkat, menulis dreams, dan menyiapkan aplikasi peminjaman pertama.</p></div>
+            <form className="news-form" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="Alamat email komunitas" aria-label="Email" />
+              <Link className="btn" href="/register">Gabung</Link>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div className="wrap">
+          <div className="footer-grid">
+            <div>
+              <div className="footer-logo"><svg width="28" height="28" viewBox="0 0 44 44" fill="none"><path d="M22 3 L38 9 V21 C38 31 31 38.5 22 41 C13 38.5 6 31 6 21 V9 Z" fill="#0D2745" stroke="#C69A3E" strokeWidth="1.6"/><path d="M22 8 L33 12.3 V21 C33 28.5 28 34 22 36.2 C16 34 11 28.5 11 21 V12.3 Z" fill="#1F4E8C"/></svg><span>TechCareIDN</span></div>
+              <p>Platform teknologi komunitas untuk memberi perangkat kesempatan kedua dan membantu Pejuang mengejar mimpi pendidikan.</p>
+              <div className="emergency-box"><b>Stack murah & siap tumbuh</b><span>Next.js, Vercel, Supabase, Cloudinary, Google Maps, Midtrans, dan WhatsApp API.</span></div>
+            </div>
+            <div className="footer-col"><h5>Jelajahi</h5><ul><li><a href="#layanan">Layanan</a></li><li><a href="#perangkat">Perangkat</a></li><li><a href="#wall-of-dreams">Wall of Dreams</a></li></ul></div>
+            <div className="footer-col"><h5>Akun</h5><ul><li><Link href="/login">Masuk</Link></li><li><Link href="/register">Daftar</Link></li><li><Link href="/dashboard">Dashboard</Link></li></ul></div>
+            <div className="footer-col"><h5>Program</h5><ul><li><a href="#">Bintang Mimpi</a></li><li><a href="#">Pejuang Mimpi</a></li><li><a href="#">Second Chance</a></li></ul></div>
+          </div>
+          <div className="footer-bottom"><span>© 2026 TechCareIDN. Seluruh hak cipta dilindungi.</span><span>Kebijakan Privasi · Syarat & Ketentuan</span></div>
+        </div>
+      </footer>
     </>
   );
 }
