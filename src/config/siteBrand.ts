@@ -12,10 +12,10 @@ export const siteBrand = {
    * - "emoji" = pakai emoji/icon teks
    * - "text"  = tanpa gambar, hanya nama brand
    */
-  logoMode: "mark" as "mark" | "image" | "emoji" | "text",
+  logoMode: "image" as "mark" | "image" | "emoji" | "text",
 
   /** Kalau logoMode = "image", taruh file di public/logo.png lalu isi "/logo.png" */
-  logoImageUrl: "/logo.png",
+  logoImageUrl: "/logo.svg",
 
   /** Kalau logoMode = "emoji", ganti emoji di sini */
   logoEmoji: "⚡"
