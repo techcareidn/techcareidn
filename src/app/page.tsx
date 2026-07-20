@@ -132,19 +132,19 @@ export default function HomePage() {
         /* FIX: semua class header diberi prefix tc- supaya tidak bentrok dengan globals.css lama */
         .tc-topbar{position:sticky; top:0; z-index:70; background:#fff; box-shadow:0 1px 0 rgba(13,39,69,.02);}
         .tc-header{background:#fff; position:relative; z-index:2; border-bottom:1px solid var(--tc-line);}
-        .tc-nav-inner{display:flex; align-items:center; justify-content:space-between; min-height:96px; gap:24px;}
-        .tc-brand{display:flex; align-items:center; gap:12px; flex:0 0 auto; min-width:0; max-width:360px; align-self:stretch;}
+        .tc-nav-inner{display:flex; align-items:center; justify-content:space-between; min-height:92px; gap:22px;}
+        .tc-brand{display:flex; align-items:center; gap:14px; flex:1 1 420px; min-width:0; max-width:520px; align-self:stretch; overflow:hidden;}
         .tc-logo-mark{width:44px; height:44px; flex:0 0 44px;}
-        .tc-logo-image{display:block; flex:0 0 auto; object-fit:contain; object-position:left center; border-radius:0; max-height:calc(100% - 10px);}
+        .tc-logo-image{display:block; flex:0 0 auto; object-fit:contain; object-position:center; border-radius:0; max-height:72px;}
         .tc-logo-emoji{width:44px; height:44px; flex:0 0 44px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:var(--tc-gold-pale); font-size:24px;}
         .tc-line-icon{display:block; width:28px; height:28px; stroke:currentColor;}
-        .tc-brand-copy{display:block; min-width:0; line-height:1;}
-        .tc-brand-name{display:block; font-family:'Fraunces',serif; font-size:26px; font-weight:700; color:var(--tc-navy); letter-spacing:-.02em; white-space:nowrap;}
-        .tc-brand-tagline{display:block; margin-top:5px; font-size:11px; font-weight:800; letter-spacing:.13em; color:var(--tc-ink-soft); text-transform:uppercase; white-space:nowrap;}
-        .tc-main-nav{display:flex; align-items:center; justify-content:center; gap:clamp(18px,2.4vw,30px); flex:1 1 auto; min-width:0; overflow:hidden;}
+        .tc-brand-copy{display:flex; flex-direction:column; justify-content:center; min-width:0; line-height:1.05; overflow:hidden;}
+        .tc-brand-name{display:block; font-family:'Fraunces',serif; font-size:30px; font-weight:700; color:var(--tc-navy); letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+        .tc-brand-tagline{display:block; margin-top:7px; font-size:11px; font-weight:800; letter-spacing:.12em; color:var(--tc-ink-soft); text-transform:uppercase; white-space:normal; line-height:1.25; max-width:390px;}
+        .tc-main-nav{display:flex; align-items:center; justify-content:center; gap:22px; flex:0 1 auto; min-width:0; overflow:hidden;}
         .tc-main-nav a{color:var(--tc-ink); font-size:15px; font-weight:700; transition:color .2s; white-space:nowrap;}
         .tc-main-nav a:hover,.tc-main-nav a.active{color:var(--tc-blue);}
-        .tc-nav-right{display:flex; align-items:center; justify-content:flex-end; gap:12px; flex:0 0 auto;}
+        .tc-nav-right{display:flex; align-items:center; justify-content:flex-end; gap:10px; flex:0 0 auto;}
         .tc-search-box{display:flex; align-items:center; gap:8px; background:var(--tc-paper); border:1px solid var(--tc-line); border-radius:999px; padding:9px 14px; font-size:13px; color:var(--tc-ink-soft); width:168px; white-space:nowrap;}
         .tc-icon-btn{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--tc-navy); position:relative; background:var(--tc-paper); flex:0 0 38px;}
         .tc-cart-count{position:absolute; top:-3px; right:-3px; background:var(--tc-gold); color:var(--tc-navy-deep); font-size:10px; font-weight:800; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
@@ -200,9 +200,9 @@ export default function HomePage() {
         .tc-news-cta{padding:72px 0;}.tc-news-cta-box{background:var(--tc-navy); border-radius:26px; padding:38px; display:flex; align-items:center; justify-content:space-between; gap:28px; color:#fff;}.tc-news-cta h3{color:#fff; font-size:30px; margin-bottom:8px;}.tc-news-cta p{color:rgba(255,255,255,.72); max-width:560px; margin:0;}.tc-news-form{display:flex; gap:10px; background:#fff; padding:8px; border-radius:999px; min-width:390px;}.tc-news-form input{border:none; outline:none; flex:1; padding:0 16px; font-size:14px; color:var(--tc-ink);}.tc-news-form .tc-btn{background:var(--tc-gold); color:var(--tc-navy-deep); padding:11px 20px;}
         .tc-footer{background:var(--tc-navy-deep); color:rgba(255,255,255,.68); padding:58px 0 26px;}.tc-footer-grid{display:grid; grid-template-columns:1.4fr .7fr .7fr .7fr; gap:34px;}.tc-footer-logo{display:flex; align-items:center; gap:10px; color:#fff; font-family:'Fraunces',serif; font-size:20px; font-weight:700; margin-bottom:14px;}.tc-footer p{font-size:14px; max-width:430px; margin:0;}.tc-emergency-box{margin-top:20px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:16px; display:grid; gap:5px;}.tc-emergency-box b{color:#fff;}.tc-emergency-box span{font-size:13px;}.tc-footer-col h5{color:#fff; font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}.tc-footer-col li{margin-bottom:9px;}.tc-footer-col a:hover{color:#fff;}.tc-footer-bottom{border-top:1px solid rgba(255,255,255,.1); margin-top:34px; padding-top:20px; display:flex; justify-content:space-between; gap:18px; font-size:12.5px;}
 
-        @media(max-width:1180px){.tc-search-box{display:none;}.tc-brand{max-width:280px;}.tc-brand-name{font-size:23px;}.tc-main-nav{gap:18px;}.tc-main-nav a{font-size:14px;}}
-        @media(max-width:980px){.tc-main-nav{display:none;}.tc-nav-inner{min-height:88px;}.tc-hero-main,.tc-product-grid,.tc-feature-card{grid-template-columns:1fr; gap:26px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:repeat(2,1fr);}.tc-testi-grid,.tc-footer-grid{grid-template-columns:1fr;}.tc-news-cta-box{display:block;}.tc-news-form{min-width:0; margin-top:22px;}.tc-brand{max-width:unset;}}
-        @media(max-width:640px){.tc-wrap{padding:0 20px;}.tc-nav-inner{padding:8px 0; align-items:center; min-height:78px;}.tc-nav-right .tc-btn{display:none;}.tc-brand-name{font-size:22px;}.tc-brand-tagline{font-size:9.5px; letter-spacing:.1em;}.tc-hero{padding-top:30px;}.tc-hero-nav-btn{display:none;}.tc-hero-text h1{font-size:31px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:1fr;}.tc-cta-banner{align-items:flex-start; padding:24px;}.tc-cta-arrow{display:none;}.tc-news-form{border-radius:22px; display:grid;}.tc-news-form input{min-height:42px;}.tc-footer-bottom{display:grid;}}
+        @media(max-width:1240px){.tc-search-box{display:none;}.tc-brand{flex-basis:390px; max-width:460px;}.tc-brand-name{font-size:28px;}.tc-main-nav{gap:18px;}.tc-main-nav a{font-size:14px;}}
+        @media(max-width:1100px){.tc-main-nav{display:none;}.tc-nav-inner{min-height:88px;}.tc-brand{flex:1 1 auto; max-width:unset;}.tc-hero-main,.tc-product-grid,.tc-feature-card{grid-template-columns:1fr; gap:26px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:repeat(2,1fr);}.tc-testi-grid,.tc-footer-grid{grid-template-columns:1fr;}.tc-news-cta-box{display:block;}.tc-news-form{min-width:0; margin-top:22px;}}
+        @media(max-width:640px){.tc-wrap{padding:0 20px;}.tc-nav-inner{padding:8px 0; align-items:center; min-height:76px;}.tc-nav-right .tc-btn{display:none;}.tc-icon-btn{display:none;}.tc-logo-image{max-height:56px;}.tc-brand-name{font-size:23px;}.tc-brand-tagline{font-size:8.8px; letter-spacing:.08em; max-width:260px;}.tc-hero{padding-top:30px;}.tc-hero-nav-btn{display:none;}.tc-hero-text h1{font-size:31px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:1fr;}.tc-cta-banner{align-items:flex-start; padding:24px;}.tc-cta-arrow{display:none;}.tc-news-form{border-radius:22px; display:grid;}.tc-news-form input{min-height:42px;}.tc-footer-bottom{display:grid;}}
       `}</style>
 
       <div className="tc-page">

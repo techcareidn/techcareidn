@@ -20,16 +20,10 @@ export const siteBrand = {
   /** Kalau logoMode = "emoji" */
   logoEmoji: "⚡",
 
-  /**
-   * Set true supaya tulisan brand + tagline tampil di samping logo.
-   * Set false kalau file logo kamu sudah berisi tulisan lengkap.
-   */
+  /** Set true supaya tulisan brand + tagline tampil rapi di samping logo */
   showBrandText: true,
 
-  /**
-   * Ukuran logo di header.
-   * Karena teks brand ditampilkan lagi, logo dibuat sebagai ikon/mark saja.
-   */
-  logoWidth: 86,
-  logoHeight: 86
+  /** Ukuran logo di header. Jangan terlalu besar supaya tidak nabrak menu. */
+  logoWidth: 78,
+  logoHeight: 78
 };
