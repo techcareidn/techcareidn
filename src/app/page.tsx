@@ -132,8 +132,8 @@ export default function HomePage() {
         /* FIX: semua class header diberi prefix tc- supaya tidak bentrok dengan globals.css lama */
         .tc-topbar{position:sticky; top:0; z-index:70; background:#fff; box-shadow:0 1px 0 rgba(13,39,69,.02);}
         .tc-header{background:#fff; position:relative; z-index:2; border-bottom:1px solid var(--tc-line);}
-        .tc-nav-inner{display:flex; align-items:center; justify-content:space-between; min-height:92px; gap:22px;}
-        .tc-brand{display:flex; align-items:center; gap:14px; flex:1 1 420px; min-width:0; max-width:520px; align-self:stretch; overflow:hidden;}
+        .tc-nav-inner{display:flex; align-items:center; justify-content:space-between; min-height:88px; gap:22px;}
+        .tc-brand{display:flex; align-items:center; gap:14px; flex:1 1 auto; min-width:0; max-width:620px; align-self:stretch; overflow:hidden;}
         .tc-logo-mark{width:44px; height:44px; flex:0 0 44px;}
         .tc-logo-image{display:block; flex:0 0 auto; object-fit:contain; object-position:center; border-radius:0; max-height:72px;}
         .tc-logo-emoji{width:44px; height:44px; flex:0 0 44px; display:flex; align-items:center; justify-content:center; border-radius:14px; background:var(--tc-gold-pale); font-size:24px;}
@@ -141,9 +141,11 @@ export default function HomePage() {
         .tc-brand-copy{display:flex; flex-direction:column; justify-content:center; min-width:0; line-height:1.05; overflow:hidden;}
         .tc-brand-name{display:block; font-family:'Fraunces',serif; font-size:30px; font-weight:700; color:var(--tc-navy); letter-spacing:-.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
         .tc-brand-tagline{display:block; margin-top:7px; font-size:11px; font-weight:800; letter-spacing:.12em; color:var(--tc-ink-soft); text-transform:uppercase; white-space:normal; line-height:1.25; max-width:390px;}
-        .tc-main-nav{display:flex; align-items:center; justify-content:center; gap:22px; flex:0 1 auto; min-width:0; overflow:hidden;}
-        .tc-main-nav a{color:var(--tc-ink); font-size:15px; font-weight:700; transition:color .2s; white-space:nowrap;}
-        .tc-main-nav a:hover,.tc-main-nav a.active{color:var(--tc-blue);}
+        .tc-menu-bar{background:#fff; border-top:1px solid var(--tc-line); border-bottom:1px solid var(--tc-line);}
+        .tc-main-nav{height:46px; display:flex; align-items:center; justify-content:center; gap:34px; overflow-x:auto; overflow-y:hidden; scrollbar-width:none;}
+        .tc-main-nav::-webkit-scrollbar{display:none;}
+        .tc-main-nav a{color:var(--tc-ink); font-size:14.5px; font-weight:800; transition:color .2s; white-space:nowrap; padding:14px 0 12px; border-bottom:2px solid transparent;}
+        .tc-main-nav a:hover,.tc-main-nav a.active{color:var(--tc-blue); border-bottom-color:var(--tc-gold);}
         .tc-nav-right{display:flex; align-items:center; justify-content:flex-end; gap:10px; flex:0 0 auto;}
         .tc-search-box{display:flex; align-items:center; gap:8px; background:var(--tc-paper); border:1px solid var(--tc-line); border-radius:999px; padding:9px 14px; font-size:13px; color:var(--tc-ink-soft); width:168px; white-space:nowrap;}
         .tc-icon-btn{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--tc-navy); position:relative; background:var(--tc-paper); flex:0 0 38px;}
@@ -200,9 +202,9 @@ export default function HomePage() {
         .tc-news-cta{padding:72px 0;}.tc-news-cta-box{background:var(--tc-navy); border-radius:26px; padding:38px; display:flex; align-items:center; justify-content:space-between; gap:28px; color:#fff;}.tc-news-cta h3{color:#fff; font-size:30px; margin-bottom:8px;}.tc-news-cta p{color:rgba(255,255,255,.72); max-width:560px; margin:0;}.tc-news-form{display:flex; gap:10px; background:#fff; padding:8px; border-radius:999px; min-width:390px;}.tc-news-form input{border:none; outline:none; flex:1; padding:0 16px; font-size:14px; color:var(--tc-ink);}.tc-news-form .tc-btn{background:var(--tc-gold); color:var(--tc-navy-deep); padding:11px 20px;}
         .tc-footer{background:var(--tc-navy-deep); color:rgba(255,255,255,.68); padding:58px 0 26px;}.tc-footer-grid{display:grid; grid-template-columns:1.4fr .7fr .7fr .7fr; gap:34px;}.tc-footer-logo{display:flex; align-items:center; gap:10px; color:#fff; font-family:'Fraunces',serif; font-size:20px; font-weight:700; margin-bottom:14px;}.tc-footer p{font-size:14px; max-width:430px; margin:0;}.tc-emergency-box{margin-top:20px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:16px; display:grid; gap:5px;}.tc-emergency-box b{color:#fff;}.tc-emergency-box span{font-size:13px;}.tc-footer-col h5{color:#fff; font-size:13px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:14px;}.tc-footer-col li{margin-bottom:9px;}.tc-footer-col a:hover{color:#fff;}.tc-footer-bottom{border-top:1px solid rgba(255,255,255,.1); margin-top:34px; padding-top:20px; display:flex; justify-content:space-between; gap:18px; font-size:12.5px;}
 
-        @media(max-width:1240px){.tc-search-box{display:none;}.tc-brand{flex-basis:390px; max-width:460px;}.tc-brand-name{font-size:28px;}.tc-main-nav{gap:18px;}.tc-main-nav a{font-size:14px;}}
-        @media(max-width:1100px){.tc-main-nav{display:none;}.tc-nav-inner{min-height:88px;}.tc-brand{flex:1 1 auto; max-width:unset;}.tc-hero-main,.tc-product-grid,.tc-feature-card{grid-template-columns:1fr; gap:26px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:repeat(2,1fr);}.tc-testi-grid,.tc-footer-grid{grid-template-columns:1fr;}.tc-news-cta-box{display:block;}.tc-news-form{min-width:0; margin-top:22px;}}
-        @media(max-width:640px){.tc-wrap{padding:0 20px;}.tc-nav-inner{padding:8px 0; align-items:center; min-height:76px;}.tc-nav-right .tc-btn{display:none;}.tc-icon-btn{display:none;}.tc-logo-image{max-height:56px;}.tc-brand-name{font-size:23px;}.tc-brand-tagline{font-size:8.8px; letter-spacing:.08em; max-width:260px;}.tc-hero{padding-top:30px;}.tc-hero-nav-btn{display:none;}.tc-hero-text h1{font-size:31px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:1fr;}.tc-cta-banner{align-items:flex-start; padding:24px;}.tc-cta-arrow{display:none;}.tc-news-form{border-radius:22px; display:grid;}.tc-news-form input{min-height:42px;}.tc-footer-bottom{display:grid;}}
+        @media(max-width:1240px){.tc-search-box{display:none;}.tc-brand{max-width:560px;}.tc-brand-name{font-size:28px;}.tc-main-nav{justify-content:flex-start; gap:28px;}.tc-main-nav a{font-size:14px;}}
+        @media(max-width:1100px){.tc-nav-inner{min-height:84px;}.tc-brand{flex:1 1 auto; max-width:unset;}.tc-main-nav{justify-content:flex-start;}.tc-hero-main,.tc-product-grid,.tc-feature-card{grid-template-columns:1fr; gap:26px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:repeat(2,1fr);}.tc-testi-grid,.tc-footer-grid{grid-template-columns:1fr;}.tc-news-cta-box{display:block;}.tc-news-form{min-width:0; margin-top:22px;}}
+        @media(max-width:640px){.tc-wrap{padding:0 20px;}.tc-nav-inner{padding:8px 0; align-items:center; min-height:76px;}.tc-nav-right .tc-btn{display:none;}.tc-icon-btn{display:none;}.tc-logo-image{max-height:56px;}.tc-brand-name{font-size:23px;}.tc-brand-tagline{font-size:8.8px; letter-spacing:.08em; max-width:260px;}.tc-menu-bar .tc-wrap{padding:0 20px;}.tc-main-nav{height:44px; gap:24px; justify-content:flex-start;}.tc-main-nav a{font-size:13.5px; padding-top:13px; padding-bottom:10px;}.tc-hero{padding-top:30px;}.tc-hero-nav-btn{display:none;}.tc-hero-text h1{font-size:31px;}.tc-app-grid,.tc-recent-grid,.tc-signs-grid{grid-template-columns:1fr;}.tc-cta-banner{align-items:flex-start; padding:24px;}.tc-cta-arrow{display:none;}.tc-news-form{border-radius:22px; display:grid;}.tc-news-form input{min-height:42px;}.tc-footer-bottom{display:grid;}}
       `}</style>
 
       <div className="tc-page">
@@ -210,14 +212,16 @@ export default function HomePage() {
           <header className="tc-header">
             <div className="tc-wrap tc-nav-inner">
               <BrandLogo />
-              <nav className="tc-main-nav">
-                <a href="#beranda" className="active">Beranda</a><a href="#layanan">Layanan</a><a href="#perangkat">Perangkat</a><a href="#wall-of-dreams">Wall of Dreams</a><a href="#komunitas">Komunitas</a>
-              </nav>
               <div className="tc-nav-right">
                 <div className="tc-search-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Cari perangkat…</div>
                 <Link className="tc-icon-btn" href="/dashboard" aria-label="Dashboard"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg><span className="tc-cart-count">3</span></Link>
                 <Link href="/login" className="tc-btn tc-btn-outline" style={{padding:"10px 18px", fontSize:"13.5px"}}>Masuk</Link><Link href="/register" className="tc-btn tc-btn-primary" style={{padding:"10px 22px", fontSize:"13.5px"}}>Gabung</Link>
               </div>
+            </div>
+            <div className="tc-menu-bar">
+              <nav className="tc-wrap tc-main-nav" aria-label="Navigasi utama">
+                <a href="#beranda" className="active">Beranda</a><a href="#layanan">Layanan</a><a href="#perangkat">Perangkat</a><a href="#wall-of-dreams">Wall of Dreams</a><a href="#komunitas">Komunitas</a>
+              </nav>
             </div>
           </header>
           <div className="tc-ticker-bar"><div className="tc-ticker-tag">TERKINI</div><div className="tc-ticker-track"><span>Program Second Chance membuka daftar Pejuang Mimpi batch pertama</span><span>Upload perangkat kini mendukung foto cepat via Cloudinary</span><span>Wall of Dreams menampilkan cerita bertumbuh dan berhasil</span><span>Program Second Chance membuka daftar Pejuang Mimpi batch pertama</span><span>Upload perangkat kini mendukung foto cepat via Cloudinary</span><span>Wall of Dreams menampilkan cerita bertumbuh dan berhasil</span></div></div>
