@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { siteBrand } from "@/config/siteBrand";
 
-const slides = [
+const slides = 
   {
     tag: "Second Chance",
     title: "Teknologi yang memberi kesempatan kedua untuk Pejuang Mimpi",
