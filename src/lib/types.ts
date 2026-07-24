@@ -5,6 +5,9 @@ export type DeviceStatus = "tersedia" | "dipinjam" | "maintenance";
 
 export type RoomKey = "dokter-gadget" | "marketplace" | "wall-of-dreams" | "second-chance";
 
+// Peran akun: Bintang = pemilik perangkat (upload), Pejuang = peminjam (transaksi)
+export type Peran = "pejuang" | "bintang";
+
 // Marketplace → Supabase (tabel: devices)
 export type Device = {
   id: string;
@@ -20,6 +23,22 @@ export type Device = {
   owner: string;      // user id Bintang
   ownerNama: string;  // nama Bintang (join profiles)
   views: number;      // untuk urutan "paling sering dilihat"
+};
+
+// Item keranjang pinjam (dashboard Pejuang, ala POS Kans Resto)
+export type CartItem = {
+  device: Device;
+  qty: number;
+};
+
+// Akun (tabel Supabase: profiles) — dibuat saat daftar, aktif setelah verifikasi email
+export type Profile = {
+  id: string;
+  nama: string;
+  universitas: string;
+  email: string;
+  peran: Peran;
+  status: "unverified" | "verified";
 };
 
 // Dokter Gadget → Notion DB (artikel + jasa servis)
