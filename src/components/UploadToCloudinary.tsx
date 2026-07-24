@@ -1,49 +1,47 @@
 "use client";
-
 import { useState } from "react";
+import Icon from "./Icon";
 
-type Props = {
-  onUploaded: (url: string) => void;
-};
+// Upload gambar ke Cloudinary (unsigned preset). Mengembalikan secure_url.
+export default function UploadToCloudinary({
+  onUploaded, label = "Unggah foto"
+}: { onUploaded: (url: string) => void; label?: string }) {
+  const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState<string>("");
 
-export function UploadToCloudinary({ onUploaded }: Props) {
-  const [loading, setLoading] = useState(false);
-
-  async function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setLoading(true);
+  const handle = async (file: File) => {
+    setBusy(true);
     try {
-      const signRes = await fetch("/api/cloudinary/sign", { method: "POST" });
-      const sign = await signRes.json();
-
-      const form = new FormData();
-      form.append("file", file);
-      form.append("api_key", sign.apiKey);
-      form.append("timestamp", sign.timestamp);
-      form.append("folder", sign.folder);
-      form.append("signature", sign.signature);
-
-      const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${sign.cloudName}/image/upload`, {
+      const cloud = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+      const body = new FormData();
+      body.append("file", file);
+      body.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud}/image/upload`, {
         method: "POST",
-        body: form
+        body
       });
-
-      const data = await uploadRes.json();
-      if (!uploadRes.ok) throw new Error(data.error?.message || "Upload Cloudinary gagal");
-      onUploaded(data.secure_url);
-    } catch (err: any) {
-      alert(err.message);
+      const json = await res.json();
+      if (json.secure_url) {
+        setPreview(json.secure_url);
+        onUploaded(json.secure_url);
+      }
     } finally {
-      setLoading(false);
+      setBusy(false);
     }
-  }
+  };
 
   return (
-    <label className="uploadBox">
-      <span>{loading ? "Mengunggah..." : "Upload foto perangkat"}</span>
-      <input type="file" accept="image/*" onChange={onChange} disabled={loading} />
+    <label className="tc-upload">
+      {preview ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={preview} alt="preview" />
+      ) : (
+        <span className="tc-upload-empty">
+          <Icon name="upload" size={22} />
+          {busy ? "Mengunggah…" : label}
+        </span>
+      )}
+      <input type="file" accept="image/*" hidden onChange={(e) => e.target.files?.[0] && handle(e.target.files[0])} />
     </label>
   );
 }

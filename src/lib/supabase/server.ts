@@ -1,29 +1,18 @@
-import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
-type CookieToSet = {
-  name: string;
-  value: string;
-  options?: any;
-};
-
-export async function supabaseServer() {
-  const cookieStore = await cookies();
-
+// Client Supabase untuk Server Component / Route Handler
+export const supabaseServer = () => {
+  const store = cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet: CookieToSet[]) {
-          cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options);
-          });
-        }
+        get: (name) => store.get(name)?.value,
+        set: () => {},
+        remove: () => {}
       }
     }
   );
-}
+};
