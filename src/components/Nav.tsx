@@ -69,8 +69,6 @@ export default function Nav() {
           {MENU.map((m) => (
             <Link key={m.href} href={m.href} className={path === m.href ? "active" : ""}>{m.label}</Link>
           ))}
-          <span className="tc-spacer" />
-          <Link href="/dashboard" className="tc-cta-link">+ Upload Perangkat</Link>
         </nav>
       </div>
 
